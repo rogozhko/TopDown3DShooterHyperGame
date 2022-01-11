@@ -1,18 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    #region Singleton
+    public static GameManager Instance { get; set; }
+    #endregion
+
+    [SerializeField] private Player player;
+
+    [SerializeField] private GameObject bulletPrefab;
+    public List<Bullet> bulletPool;
+    private int countBulletsInPool = 3;
+    public int bulletSpeed = 5;
+
+    //Temp link to enemy, needs refactoring to list of enemies!
+    public GameObject enemy;
+
+
+    private void Awake()
     {
-        
+        // Init singleton
+        Instance = this;
+
+
+        //Create Pool Of Bullets
+        InitializeBulletPool();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializeBulletPool()
     {
-        
+        bulletPool = new List<Bullet>();
+        for (int i = 0; i < countBulletsInPool; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, player.bulletPoolPoint);
+            bullet.gameObject.SetActive(false);
+            bulletPool.Add(bullet.GetComponent<Bullet>());
+            bullet.gameObject.name = "Bullet " + i;
+        }
+    }
+
+    public void GrabBullet(Bullet bullet)
+    {
+        //Grab bullet and put back to pool
+        Debug.Log("Grab " + bullet.gameObject.name);
+
+        bullet.gameObject.SetActive(false);
+
+        bulletPool.Add(bullet);
+        bullet.transform.SetParent(player.bulletPoolPoint);
+        bullet.transform.position = player.bulletPoolPoint.transform.position;
     }
 }

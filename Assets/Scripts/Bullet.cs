@@ -4,15 +4,52 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // public Rigidbody rigidbody;
+    GameManager gameManager;
+
+    public Vector3 targetPosition;
+
+    private void Awake()
     {
-        
+        gameManager = GameManager.Instance;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShootDebug()
     {
-        
+        if (targetPosition != null)
+        {
+            // Debug.Log("Enemy is on " + targetPosition);
+        }
+
+
     }
+
+    private void Update()
+    {
+        // If bullet is active, move toward enemy
+        if (gameObject.activeSelf == true)
+        {
+            transform.Translate(Vector3.forward * gameManager.bulletSpeed * Time.deltaTime);
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        // Activate GrabBullet() in GameManager with this bullet
+        gameManager.GrabBullet(this);
+    }
+
+    public void StartCountForDead()
+    {
+        StartCoroutine(WaitForDead());
+    }
+
+    IEnumerator WaitForDead()
+    {
+        Debug.Log("Start Count");
+        yield return new WaitForSeconds(2);
+        Debug.Log("Dead Bullet");
+        gameManager.GrabBullet(this);
+    }
+
 }
