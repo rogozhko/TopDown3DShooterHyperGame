@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] private Player player;
-
     [SerializeField] private GameObject bulletPrefab;
     public int countBulletsInPool = 3;
     public int bulletSpeed = 5;
@@ -19,14 +18,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Init singleton
         Instance = this;
 
-        //Create Pool Of Bullets
-        InitializeBulletPool();
+        CreateBulletPool();
     }
 
-    private void InitializeBulletPool()
+    private void CreateBulletPool()
     {
         bulletPool = new List<Bullet>();
         for (int i = 0; i < countBulletsInPool; i++)

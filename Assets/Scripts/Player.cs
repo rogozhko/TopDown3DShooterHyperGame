@@ -6,11 +6,32 @@ public class Player : MonoBehaviour
 {
     private GameManager gameManager;
     public Transform bulletPoolPoint;
+    public PlayerMovement playerMovement;
+
+    [Range(0.2f, 1f)] public float bulletTimer;
+    private float timer;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
-        StartCoroutine(StartShoot());
+    }
+
+
+    void FixedUpdate()
+    {
+        if (!playerMovement.playerIsMoving)
+        {
+            timer += Time.deltaTime;
+            if (timer > bulletTimer)
+            {
+                timer = 0;
+                Shoot();
+            }
+        }
+        else
+        {
+            timer = 0;
+        }
     }
 
 
