@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 
     public Vector3 targetPosition;
 
-    private void Awake()
+    private void Start()
     {
         gameManager = GameManager.Instance;
     }

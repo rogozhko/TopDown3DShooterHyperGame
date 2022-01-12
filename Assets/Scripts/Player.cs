@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 
     public Transform bulletPoolPoint;
 
-    private void Awake()
+    private void Start()
     {
         gameManager = GameManager.Instance;
     }
@@ -26,8 +26,9 @@ public class Player : MonoBehaviour
         {
             //Get bullet from pool
             Bullet bullet = gameManager.bulletPool[0];
-            bullet.targetPosition = gameManager.enemy.transform.position;
 
+            //Set enemyPosition
+            bullet.targetPosition = gameManager.enemy.transform.position;
             bullet.ShootDebug();
 
             bullet.gameObject.SetActive(true);
