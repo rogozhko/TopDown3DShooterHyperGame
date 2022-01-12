@@ -8,22 +8,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
     #endregion
 
+
     [SerializeField] private Player player;
 
     [SerializeField] private GameObject bulletPrefab;
-    public List<Bullet> bulletPool;
-    private int countBulletsInPool = 3;
+    public int countBulletsInPool = 3;
     public int bulletSpeed = 5;
 
-    //Temp link to enemy, needs refactoring to list of enemies!
-    public GameObject enemy;
-
+    public List<Bullet> bulletPool;
 
     private void Awake()
     {
         // Init singleton
         Instance = this;
-
 
         //Create Pool Of Bullets
         InitializeBulletPool();
@@ -44,12 +41,13 @@ public class GameManager : MonoBehaviour
     public void GrabBullet(Bullet bullet)
     {
         //Grab bullet and put back to pool
-        Debug.Log("Grab " + bullet.gameObject.name);
+        // Debug.Log("Grab " + bullet.gameObject.name);
 
         bullet.gameObject.SetActive(false);
 
         bulletPool.Add(bullet);
         bullet.transform.SetParent(player.bulletPoolPoint);
         bullet.transform.position = player.bulletPoolPoint.transform.position;
+
     }
 }

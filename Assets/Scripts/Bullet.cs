@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
     // public Rigidbody rigidbody;
@@ -14,15 +15,7 @@ public class Bullet : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-    public void ShootDebug()
-    {
-        if (targetPosition != null)
-        {
-            // Debug.Log("Enemy is on " + targetPosition);
-        }
 
-
-    }
 
     private void Update()
     {
@@ -46,9 +39,7 @@ public class Bullet : MonoBehaviour
 
     IEnumerator WaitForDead()
     {
-        Debug.Log("Start Count");
         yield return new WaitForSeconds(2);
-        Debug.Log("Dead Bullet");
         gameManager.GrabBullet(this);
     }
 

@@ -1,24 +1,26 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
     private GameManager gameManager;
-
     public Transform bulletPoolPoint;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
+        StartCoroutine(StartShoot());
     }
 
-    private void Update()
+
+    IEnumerator StartShoot()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-
+        yield return new WaitForSeconds(0.3f);
+        Shoot();
+        StartCoroutine(StartShoot());
     }
+
 
     private void Shoot()
     {
@@ -26,10 +28,6 @@ public class Player : MonoBehaviour
         {
             //Get bullet from pool
             Bullet bullet = gameManager.bulletPool[0];
-
-            //Set enemyPosition
-            bullet.targetPosition = gameManager.enemy.transform.position;
-            bullet.ShootDebug();
 
             bullet.gameObject.SetActive(true);
             gameManager.bulletPool.Remove(bullet);
