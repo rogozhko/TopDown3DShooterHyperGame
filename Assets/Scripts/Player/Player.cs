@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     private GameManager gameManager;
     public Transform bulletPoolPoint;
-    public PlayerMovement playerMovement;
+    public CheckMovement checkMovement;
 
     [Range(0.2f, 1f)] public float bulletTimer;
     private float timer;
@@ -19,18 +19,20 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!playerMovement.playerIsMoving)
+        if (!checkMovement.playerIsMoving)
         {
             timer += Time.deltaTime;
             if (timer > bulletTimer)
             {
                 timer = 0;
+                // Debug.Log("Shoot!");
                 // Shoot();
             }
         }
         else
         {
             timer = 0;
+            // Debug.Log("Stop Shooting");
         }
     }
 

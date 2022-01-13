@@ -1,50 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController controller;
-    [SerializeField] private float playerSpeed = 3f;
+    private PlayerControls playerControls;
 
-    public InputAction moveAction;
+    public CharacterController controller;
 
-    [Space(20)]
-    private Vector3 lastPosition;
-    [Space(20)]
-    public bool playerIsMoving;
+    public float speed = 6f;
+    public float turnSmoothTime = 0.1f;
+    private float turnSmoothVelocity;
 
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
 
     private void Start()
     {
-        controller = gameObject.GetComponent<CharacterController>();
-        moveAction.Enable();
+        playerControls.gameplay.move_player.performed += cxt => StartTouching(cxt);
+        playerControls.gameplay.touch.canceled += cxt => StopTouching();
+    }
 
+    private float horizontal;
+    private float vertical;
 
+    private void StartTouching(InputAction.CallbackContext context)
+    {
+        // Debug.Log(context.ReadValue<Vector2>());
+        horizontal = context.ReadValue<Vector2>().x;
+        vertical = context.ReadValue<Vector2>().y;
+    }
+
+    private void StopTouching()
+    {
+        // Debug.Log("Stop Touching");
+        horizontal = 0f;
+        vertical = 0f;
     }
 
     private void Update()
     {
-        Vector2 input = moveAction.ReadValue<Vector2>();
-        Vector3 direction = new Vector3(input.x, 0, input.y);
-        controller.Move(direction * playerSpeed * Time.deltaTime);
+        // float horizontal = Input.GetAxisRaw("Horizontal");
+        // float vertical = Input.GetAxisRaw("Vertical");
 
-        if (transform.position != lastPosition)
+
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        // Debug.Log(direction);
+
+        if (direction.magnitude >= 0.1f)
         {
-            playerIsMoving = true;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            controller.Move(direction * speed * Time.deltaTime);
+
         }
-        else
-        {
-            playerIsMoving = false;
-        }
-        lastPosition = transform.position;
-
-
-        // if (direction != Vector3.zero) Debug.Log(direction);
-
-        // if (direction != Vector3.zero)
-        // {
-        //     gameObject.transform.forward = direction;
-        // }
-
     }
 }
