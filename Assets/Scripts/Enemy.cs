@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+
+
         if (other.gameObject.CompareTag("Bullet"))
         {
             // Debug.Log("Enemy: Bullet on me!");
@@ -32,6 +34,16 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger");
+    }
+
+
+
+
+
 
     IEnumerator ChangeColor()
     {

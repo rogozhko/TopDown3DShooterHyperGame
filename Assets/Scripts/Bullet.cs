@@ -8,27 +8,25 @@ public class Bullet : MonoBehaviour
     // public Rigidbody rigidbody;
     GameManager gameManager;
 
-    public Vector3 targetPosition;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
     }
 
-
-
     private void Update()
     {
-        // If bullet is active, move toward enemy
+        // Debug.Log(transform.rotation);
+
+
         if (gameObject.activeSelf == true)
         {
-            transform.Translate(Vector3.forward * gameManager.bulletSpeed * Time.deltaTime);
+            transform.position += transform.forward * gameManager.bulletSpeed * Time.deltaTime;
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        // Activate GrabBullet() in GameManager with this bullet
         gameManager.GrabBullet(this);
     }
 
@@ -39,7 +37,7 @@ public class Bullet : MonoBehaviour
 
     IEnumerator WaitForDead()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         gameManager.GrabBullet(this);
     }
 

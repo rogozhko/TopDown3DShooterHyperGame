@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public Transform bulletPoolPoint;
     public CheckMovement checkMovement;
 
-    [Range(0.2f, 1f)] public float bulletTimer;
+
     private float timer;
 
     private void Start()
@@ -22,11 +22,11 @@ public class Player : MonoBehaviour
         if (!checkMovement.playerIsMoving)
         {
             timer += Time.deltaTime;
-            if (timer > bulletTimer)
+            if (timer > gameManager.bulletInterval)
             {
                 timer = 0;
                 // Debug.Log("Shoot!");
-                // Shoot();
+                Shoot();
             }
         }
         else
@@ -37,12 +37,6 @@ public class Player : MonoBehaviour
     }
 
 
-    IEnumerator StartShoot()
-    {
-        yield return new WaitForSeconds(0.3f);
-        Shoot();
-        StartCoroutine(StartShoot());
-    }
 
 
     private void Shoot()

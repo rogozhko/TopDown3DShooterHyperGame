@@ -8,11 +8,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
     #endregion
 
-
+    [SerializeField] private GameObject playerGO;
     [SerializeField] private Player player;
     [SerializeField] private GameObject bulletPrefab;
-    public int countBulletsInPool = 3;
-    public int bulletSpeed = 5;
+
+    [Space(20)]
+    [Range(1, 10)] public int countBulletsInPool = 3;
+    [Space(20)]
+    [Range(5, 50)] public int bulletSpeed = 5;
+    [Space(20)]
+    [Range(0.2f, 1f)] public float bulletInterval;
 
     public List<Bullet> bulletPool;
 
@@ -44,7 +49,10 @@ public class GameManager : MonoBehaviour
 
         bulletPool.Add(bullet);
         bullet.transform.SetParent(player.bulletPoolPoint);
-        bullet.transform.position = player.bulletPoolPoint.transform.position;
+        bullet.transform.localPosition = Vector3.zero;
+        // bullet.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        bullet.transform.localRotation = Quaternion.identity;
+
 
     }
 }
