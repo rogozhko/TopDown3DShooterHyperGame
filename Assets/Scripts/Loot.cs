@@ -5,7 +5,7 @@ using UnityEngine;
 public class Loot : MonoBehaviour
 {
 
-    private bool isDetect = false;
+    public bool isDetect = false;
     public bool letsGrab = false;
 
     private Vector3 target = Vector3.zero;
@@ -18,7 +18,6 @@ public class Loot : MonoBehaviour
     {
         if (isDetect)
         {
-
             transform.position = Vector3.Lerp(transform.position, target, speed);
             if (letsGrab)
             {
@@ -41,7 +40,7 @@ public class Loot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!isDetect && other.gameObject.CompareTag("Player"))
         {
             isDetect = true;
             player = other.gameObject;
