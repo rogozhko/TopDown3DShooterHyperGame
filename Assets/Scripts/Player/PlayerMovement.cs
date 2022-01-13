@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls playerControls;
 
-    public CharacterController controller;
+    // public CharacterController controller;
 
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
@@ -66,8 +66,8 @@ public class PlayerMovement : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            controller.Move(direction * speed * Time.deltaTime);
-
+            // controller.Move(direction * speed * Time.deltaTime);
+            transform.position += direction * speed * Time.deltaTime;
         }
     }
 }

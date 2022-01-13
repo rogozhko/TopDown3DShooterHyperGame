@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public Transform bulletPoolPoint;
     public CheckMovement checkMovement;
 
+    [Space(20)]
+    public bool shooting = true;
 
     private float timer;
 
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
             {
                 timer = 0;
                 // Debug.Log("Shoot!");
-                Shoot();
+                if (shooting) Shoot();
             }
         }
         else

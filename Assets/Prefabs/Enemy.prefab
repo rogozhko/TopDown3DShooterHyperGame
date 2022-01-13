@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1931968158402306280}
   - component: {fileID: 3941787814027675563}
   - component: {fileID: 318507448148052115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3399210454850297676}
   - component: {fileID: 3399210454850297677}
   - component: {fileID: 4862635082706744090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 3399210456093097799}
   - component: {fileID: 3399210456093097796}
   - component: {fileID: 3399210456093097797}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
