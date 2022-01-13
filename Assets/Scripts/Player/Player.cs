@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
             if (timer > bulletTimer)
             {
                 timer = 0;
-                Shoot();
+                // Shoot();
             }
         }
         else
