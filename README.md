@@ -1,4 +1,4 @@
-# TopDown3DShooterHyperGame
+# Top Down 3DShooter Hyper Game
 ### Shooting, pushing and grab some objects
 
 - third person top down movement
